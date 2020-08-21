@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <div class="form-group">
+    <label for="searchInput">Search Picture</label>
+    <input
+      [value]="searchString"
+      (input)="handleInput($event)"
+        type="text"
+        class="form-control"
+        id="searchInput"
+        aria-describedby="searchHelp"
+        autofocus>
+    <small id="searchHelp" class="form-text text-muted">Start typing a name to search</small>
+  </div>
+  <app-search-provider></app-search-provider>
+</div>
+

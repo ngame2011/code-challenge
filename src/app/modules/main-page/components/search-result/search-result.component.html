@@ -1,0 +1,20 @@
+<ng-container *ngIf="!searchResult.length;  else content">
+  <div class="text-center">
+    <h1 class="display-4">Nothing found. Check the input is correct</h1>
+  </div>
+</ng-container>
+
+<ng-template #content>
+  <h1 class="display-4">Search results:</h1>
+  <div class="card-columns">
+    <div class="card" *ngFor="let photo of searchResult">
+      <img [src]="photo.previewUrl || photo.url" class="card-img" alt="photo">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <a [href]="photo.author" class="card-link" target="_blank">Author</a>
+          <app-add-to-favorite [photo]="photo"></app-add-to-favorite>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
