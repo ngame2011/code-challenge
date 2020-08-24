@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form (submit)="addToFavorite($event)">
+    <form (submit)="addToFavorite($event)" novalidate>
       <div class="form-group">
         <label for="categoryInput">Category</label>
         <input type="text"
@@ -22,7 +22,7 @@
         </small>
 
         <datalist id="categories">
-          <ng-container *ngFor="let category of (categories$ | async)">
+          <ng-container *ngFor="let category of categories">
             <option [value]="category.title">
           </ng-container>
         </datalist>

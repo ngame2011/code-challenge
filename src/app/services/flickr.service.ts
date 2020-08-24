@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 
 import { environment } from 'src/environments/environment';
 import {FlickrAPIResponse, Photo, SearchProvider} from 'src/app/shared/app.interfaces';
@@ -43,6 +44,7 @@ export class FlickrService implements SearchProvider {
       distinctUntilChanged(),
       tap((data) => {
         this.setSearchResult(data.photos.photo.map(item => ({
+          id: uuidv4(),
           author: `${this.authorEndpointUrl}/${item.owner}`,
           title: item.title,
           url: item.url_l,

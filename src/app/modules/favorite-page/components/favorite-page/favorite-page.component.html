@@ -1,1 +1,22 @@
-<p>favorite-page works!</p>
+<ng-container *ngIf="categories$ | async;  else content">
+  <div *ngFor="let category of (categories$ | async)">
+    <blockquote class="blockquote" >
+      <p class="mb-0">{{category.title}}</p>
+    </blockquote>
+
+    <div class="card-columns">
+      <div class="card"
+           *ngFor="let photo of (photoToCategory$ | async) | photoToCategory:category">
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-template #content>
+  <div class="text-center">
+    <h1 class="display-4">
+      Nothing found. Go to <a routerLink="/main">main page</a> and try to find photos!
+    </h1>
+  </div>
+</ng-template>

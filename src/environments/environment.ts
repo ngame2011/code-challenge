@@ -2,10 +2,15 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { AppConstants } from 'src/app/shared/app.constants';
+
 export const environment = {
   production: false,
+  defaultSearchProvider: AppConstants.FlickrProvider,
   flickrApiKey: '6d5116efc84bea91bcf14ed4ed565d72',
-  flickrSecret: 'bd1437b46c17b404'
+  flickrSecret: 'bd1437b46c17b404',
+  unsplashApiKey: 'hGCfKQPoEnkYMKVfDJ7ZlAtfr65hIBWEFt0lJ3MhzRI',
+  unsplashSecret: '2_U-idDMuu5ZzVQuaQNcenXUDEsBomRPfc1vRIwChc0'
 };
 
 /*

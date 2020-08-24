@@ -5,7 +5,7 @@
 </ng-container>
 
 <ng-template #content>
-  <h1 class="display-4">Search results:</h1>
+  <h2 class="display-4">Search results for "{{searchQuery}}":</h2>
   <div class="card-columns">
     <div class="card" *ngFor="let photo of searchResult">
       <img [src]="photo.previewUrl || photo.url" class="card-img" alt="photo">

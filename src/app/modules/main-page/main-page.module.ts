@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbButtonsModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MainPageRouter } from './main-page.route';
 import { SearchInputComponent } from './components/search-input/search-input.component';

@@ -1,7 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { FlickrService } from 'src/app/services/flickr.service';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
+import {AppState} from 'src/app/shared/app.interfaces';
+import {searchQuerySelector} from 'src/app/selectors';
+import {setPhotos, setSearchQuery} from 'src/app/actions';
+import { FlickrService } from 'src/app/services/flickr.service';
 
 @Component({
   selector: 'app-search-input',
@@ -13,12 +17,27 @@ export class SearchInputComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
 
-  constructor(private flickrService: FlickrService) { }
+  constructor(
+    private flickrService: FlickrService,
+    private store$: Store<AppState>
+  ) {}
 
   ngOnInit() {
+    this.store$
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        select(searchQuerySelector)
+      )
+      .subscribe((query: string) => {
+        this.searchString = query;
+        this.searchByQuery(query);
+      });
+
     this.flickrService.getSearchResult()
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
+      .subscribe((photos) => {
+        this.store$.dispatch(setPhotos({ photos }));
+      });
   }
 
   ngOnDestroy() {
@@ -27,10 +46,18 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   handleInput($event) {
-    const searchString = $event.target.value;
+    this.store$.dispatch(setSearchQuery({
+      query: $event.target.value
+    }));
+  }
 
-    this.flickrService.search(searchString)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
+  private searchByQuery(query: string) {
+    if (query.length > 2) {
+      this.flickrService.search(query)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
+    } else {
+      this.flickrService.setSearchResult([]);
+    }
   }
 }

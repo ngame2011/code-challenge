@@ -1,25 +1,13 @@
+import {AppConstants} from 'src/app/shared/app.constants';
+
+export * from './interfaces/flickr.interfaces';
+
 export interface SearchProvider {
   search(searchString: string);
 }
 
-interface FlickrApiPhoto {
-  id: string;
-  title: string;
-  owner: string;
-  farm: number;
-  secret: string;
-  server: string;
-  url_q: string;
-  url_l: string;
-}
-
-export interface FlickrAPIResponse {
-  photos: {
-    photo: FlickrApiPhoto[];
-  };
-}
-
 export interface Photo {
+  id: string;
   author: string;
   title: string;
   url: string;
@@ -28,13 +16,22 @@ export interface Photo {
 }
 
 export interface Category {
+  id: string;
   title: string;
-  photos: Photo[];
   description?: string;
 }
 
+export interface PhotoToCategory {
+  categoryId: string;
+  photoId: string;
+}
+
 export interface AppReducer {
+  searchProvider: string;
+  searchQuery: string;
+  photos: Photo[];
   categories: Category[];
+  photoToCategory: PhotoToCategory[];
 }
 
 export interface AppState {

@@ -1,8 +1,11 @@
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="UnsplashOptions" id="inlineRadio1" value="Unsplash">
-  <label class="form-check-label" for="inlineRadio1">Unsplash</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Flickr">
-  <label class="form-check-label" for="inlineRadio2">Flickr</label>
+<div *ngFor="let provider of providerList; let i=index"
+     class="form-check form-check-inline">
+  <input class="form-check-input"
+         type="radio"
+         name="searchProvider"
+         [id]="provider + '_' + i"
+         [checked]="currentProvider === provider"
+         [value]="provider" (change)="setProvider(provider)">
+  <label class="form-check-label"
+         [for]="provider + '_' + i">{{provider}}</label>
 </div>
